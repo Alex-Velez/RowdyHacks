@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsas55ffil8w2"]
+
+[ext_resource type="Script" path="res://Scripts/TextBox.gd" id="1_orv4l"]
+[ext_resource type="FontFile" uid="uid://isg08xtjb1gk" path="res://Fonts/delightious/Delightious.otf" id="2_flt4a"]
+
+[node name="TextBox1" type="Control"]
+layout_mode = 3
+anchor_right = 0.631
+anchor_bottom = 0.134
+offset_right = -726.912
+offset_bottom = -86.832
+script = ExtResource("1_orv4l")
+text_stages = Array[String](["Oh wow!...", "I'm finally awake!", "But...", "Where am I?..."])
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 727.0
+offset_bottom = 87.0
+color = Color(1, 0.768627, 1, 1)
+metadata/_edit_lock_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_right = 727.0
+offset_bottom = 87.0
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_right = 727.0
+offset_bottom = 87.0
+theme_override_colors/font_color = Color(0.258824, 0.258824, 0.258824, 1)
+theme_override_fonts/font = ExtResource("2_flt4a")
+theme_override_font_sizes/font_size = 56
+text = "Oh wow!... I'm finally awake!"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true

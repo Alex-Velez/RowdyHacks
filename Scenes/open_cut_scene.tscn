@@ -1,0 +1,225 @@
+[gd_scene load_steps=21 format=3 uid="uid://c0eej8u6stc88"]
+
+[ext_resource type="Script" path="res://Scripts/open_cut_scene.gd" id="1_248ww"]
+[ext_resource type="Script" path="res://Scripts/cut_scene_player.gd" id="2_kfxfq"]
+[ext_resource type="Texture2D" uid="uid://c3keblhgb2m8v" path="res://Sprites/Dinos/triceritops.png" id="3_6kue2"]
+[ext_resource type="Texture2D" uid="uid://5r4a45k7em5o" path="res://Sprites/Dinos/triceritops_closed.png" id="4_r73ic"]
+[ext_resource type="PackedScene" uid="uid://ddk878xihgcxw" path="res://Scenes/text_box_general.tscn" id="6_bdinw"]
+[ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="6_dand6"]
+[ext_resource type="Script" path="res://Scripts/ParallaxBackground.gd" id="7_p66ew"]
+[ext_resource type="Texture2D" uid="uid://cypfrrtpgysnk" path="res://Sprites/parallax_mountain_pack/parallax-mountain-bg.png" id="8_ce07t"]
+[ext_resource type="Texture2D" uid="uid://dc8y8y7ilifrb" path="res://Sprites/parallax_mountain_pack/parallax-mountain-montain-far.png" id="9_8344o"]
+[ext_resource type="Texture2D" uid="uid://cja30in2ogam5" path="res://Sprites/parallax_mountain_pack/parallax-mountain-mountains.png" id="10_a1m40"]
+[ext_resource type="Texture2D" uid="uid://be26tsv3xsnxg" path="res://Sprites/parallax_mountain_pack/parallax-mountain-trees.png" id="11_wj0n1"]
+[ext_resource type="Texture2D" uid="uid://dwrijqebhpxr" path="res://Sprites/Dinos/stegosaurus.png" id="12_64y4e"]
+[ext_resource type="Texture2D" uid="uid://b80hj2or7cxyc" path="res://Sprites/Dinos/stegosuarus_closed.png" id="13_ow82g"]
+[ext_resource type="AudioStream" uid="uid://bmlcaa548rpn1" path="res://Sounds/Ambient/Cavemen.mp3" id="16_bigg7"]
+
+[sub_resource type="Animation" id="Animation_biyud"]
+resource_name = "black_fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackFade:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_efgng"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackFade:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"switch_to_world"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_xc8e5"]
+resource_name = "player_to_chr2"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(279, 324), Vector2(-459, 324)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Character:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1768, 324), Vector2(919, 324)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3almy"]
+_data = {
+"black_fade": SubResource("Animation_biyud"),
+"fade_out": SubResource("Animation_efgng"),
+"player_to_chr2": SubResource("Animation_xc8e5")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_owkvn"]
+animations = [{
+"frames": [{
+"duration": 15.0,
+"texture": ExtResource("3_6kue2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_r73ic")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7cvcp"]
+animations = [{
+"frames": [{
+"duration": 15.0,
+"texture": ExtResource("12_64y4e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ow82g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="OpenCutscene" type="Node2D"]
+script = ExtResource("1_248ww")
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3almy")
+}
+
+[node name="Player" type="Node2D" parent="."]
+position = Vector2(279, 324)
+script = ExtResource("2_kfxfq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+modulate = Color(0.968627, 0, 0.294118, 1)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_owkvn")
+frame_progress = 0.721586
+flip_h = true
+metadata/_edit_lock_ = true
+
+[node name="PlayerTextBox" parent="Player" instance=ExtResource("6_bdinw")]
+position = Vector2(-270, 164)
+text_sentences = Array[String](["Oh wow!...", "I'm finally awake!", "But...", "Where am I?..."])
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+script = ExtResource("6_dand6")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = ExtResource("7_p66ew")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture_filter = 1
+position = Vector2(576.5, 324.5)
+scale = Vector2(4.23897, 4.05625)
+texture = ExtResource("8_ce07t")
+metadata/_edit_lock_ = true
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+texture_filter = 1
+position = Vector2(576.5, 324.5)
+scale = Vector2(4.23897, 4.05625)
+texture = ExtResource("9_8344o")
+metadata/_edit_lock_ = true
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+texture_filter = 1
+position = Vector2(576.5, 324.5)
+scale = Vector2(4.23897, 4.05625)
+texture = ExtResource("10_a1m40")
+metadata/_edit_lock_ = true
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+texture_filter = 1
+position = Vector2(576.5, 324.5)
+scale = Vector2(4.23897, 4.05625)
+texture = ExtResource("11_wj0n1")
+metadata/_edit_lock_ = true
+
+[node name="Character" type="Node2D" parent="."]
+position = Vector2(1768, 324)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Character"]
+modulate = Color(0, 0.796078, 0.576471, 1)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_7cvcp")
+frame_progress = 0.0781471
+metadata/_edit_lock_ = true
+
+[node name="ChrcTextBox" parent="Character" instance=ExtResource("6_bdinw")]
+position = Vector2(-532, 164)
+text_sentences = Array[String](["Ahoy matey!...", "Ello from down unda!...", "I see you're new here right?...", "Why don't ya have a look around!"])
+metadata/_edit_lock_ = true
+
+[node name="BlackFade" type="ColorRect" parent="."]
+offset_right = 1153.0
+offset_bottom = 649.0
+color = Color(0, 0, 0, 0)
+metadata/_edit_lock_ = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_bigg7")
+volume_db = 3.0
+autoplay = true
+
+[connection signal="text_completed" from="Player/PlayerTextBox" to="." method="_on_player_text_box_text_completed"]
+[connection signal="text_completed" from="Character/ChrcTextBox" to="." method="_on_chrc_text_box_text_completed"]
